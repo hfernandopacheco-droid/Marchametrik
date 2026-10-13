@@ -1,0 +1,67 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Soft Navigation Ground Shadow -->
+    <filter id="arrowGroundShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <!-- Cyan Glowing Aura -->
+    <filter id="arrowGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Left Wing 3D Gradient (Lighter highlight side) -->
+    <linearGradient id="arrowLeftWing" x1="128" y1="28" x2="48" y2="210" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="40%" stop-color="#00D4FF" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+
+    <!-- Right Wing 3D Gradient (Deeper shaded side) -->
+    <linearGradient id="arrowRightWing" x1="128" y1="28" x2="208" y2="210" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="40%" stop-color="#0369A1" />
+      <stop offset="100%" stop-color="#075985" />
+    </linearGradient>
+
+    <!-- Top Bevel Highlight (Glossy glass reflection) -->
+    <linearGradient id="arrowGloss" x1="128" y1="30" x2="128" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- White Border Stroke Gradient -->
+    <linearGradient id="arrowBorder" x1="128" y1="20" x2="128" y2="225" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="80%" stop-color="#E2E8F0" />
+      <stop offset="100%" stop-color="#94A3B8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Ground Drop Shadow Base -->
+  <g filter="url(#arrowGroundShadow)">
+    <!-- White Outline Perimeter -->
+    <path d="M 128 22 L 216 206 C 219 213 213 221 205 218 L 128 178 L 51 218 C 43 221 37 213 40 206 Z"
+          fill="url(#arrowBorder)" />
+
+    <!-- Left Wing (Bright 3D) -->
+    <path d="M 128 32 L 48 202 C 45 208 50 213 55 211 L 128 174 Z"
+          fill="url(#arrowLeftWing)" />
+
+    <!-- Right Wing (Shaded 3D) -->
+    <path d="M 128 32 L 128 174 L 201 211 C 206 213 211 208 208 202 Z"
+          fill="url(#arrowRightWing)" />
+
+    <!-- Central Ridge Bevel Highlight -->
+    <path d="M 128 32 L 128 174" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.75" />
+
+    <!-- Glossy Top Sheen -->
+    <path d="M 128 34 L 88 120 L 128 100 L 168 120 Z" fill="url(#arrowGloss)" />
+
+    <!-- Core Center Navigation Dot -->
+    <circle cx="128" cy="138" r="7" fill="#FFFFFF" opacity="0.9" />
+    <circle cx="128" cy="138" r="4" fill="#00D4FF" />
+  </g>
+</svg>

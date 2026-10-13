@@ -1,0 +1,186 @@
+{
+  "entities": {
+    "AccountRecord": {
+      "title": "AccountRecord",
+      "description": "Cuenta de usuario autenticada para sincronización en la nube multi-dispositivo",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "passwordHash": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "country": { "type": "string" }
+      },
+      "required": ["uid", "email", "passwordHash"]
+    },
+    "RefuelRecord": {
+      "title": "RefuelRecord",
+      "description": "Bitácora de repostaje vehicular",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "pais": { "type": "string", "enum": ["CO", "PL", "ES", "MX"] },
+        "moneda": { "type": "string" },
+        "categoria": { "type": "string", "enum": ["bitacora"] },
+        "station": { "type": "string" },
+        "fuelType": { "type": "string" },
+        "liters": { "type": "number" },
+        "pricePerLiter": { "type": "number" },
+        "cost": { "type": "number" },
+        "odometer": { "type": "number" },
+        "kmSinceLastRefuel": { "type": "number" },
+        "consumptionL100": { "type": "number" },
+        "refuelDate": { "type": "string" },
+        "notes": { "type": "string" },
+        "receiptUrl": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "categoria", "pais", "cost", "odometer"]
+    },
+    "MaintenanceRecord": {
+      "title": "MaintenanceRecord",
+      "description": "Historial de mantenimientos mecánicos y de taller",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "pais": { "type": "string", "enum": ["CO", "PL", "ES", "MX"] },
+        "moneda": { "type": "string" },
+        "categoria": { "type": "string", "enum": ["mantenimiento"] },
+        "serviceType": { "type": "string" },
+        "productBrand": { "type": "string" },
+        "workshop": { "type": "string" },
+        "cost": { "type": "number" },
+        "odometer": { "type": "number" },
+        "serviceDate": { "type": "string" },
+        "nextServiceKm": { "type": "number" },
+        "nextServiceDate": { "type": "string" },
+        "notes": { "type": "string" },
+        "receiptUrl": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "categoria", "pais", "cost", "odometer"]
+    },
+    "TireRecord": {
+      "title": "TireRecord",
+      "description": "Control de neumáticos, rotación y presión",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "pais": { "type": "string", "enum": ["CO", "PL", "ES", "MX"] },
+        "moneda": { "type": "string" },
+        "categoria": { "type": "string", "enum": ["neumaticos"] },
+        "tireType": { "type": "string" },
+        "brandAndDot": { "type": "string" },
+        "pressureFrontPsi": { "type": "number" },
+        "pressureRearPsi": { "type": "number" },
+        "cost": { "type": "number" },
+        "odometer": { "type": "number" },
+        "installDate": { "type": "string" },
+        "nextCheckDate": { "type": "string" },
+        "storageLocation": { "type": "string" },
+        "notes": { "type": "string" },
+        "receiptUrl": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "categoria", "pais", "cost", "odometer"]
+    },
+    "LegalRecord": {
+      "title": "LegalRecord",
+      "description": "Trámites, inspecciones y seguros legales por país",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "pais": { "type": "string", "enum": ["CO", "PL", "ES", "MX"] },
+        "moneda": { "type": "string" },
+        "categoria": { "type": "string", "enum": ["tramites"] },
+        "tramiteType": { "type": "string" },
+        "entity": { "type": "string" },
+        "cost": { "type": "number" },
+        "odometer": { "type": "number" },
+        "startDate": { "type": "string" },
+        "expiryDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["vigente", "por_vencer", "vencido"] },
+        "notes": { "type": "string" },
+        "receiptUrl": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "categoria", "pais", "tramiteType", "expiryDate"]
+    },
+    "ViajeRecord": {
+      "title": "ViajeRecord",
+      "description": "Historial de viajes calculados o grabados en modo marcha",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "date": { "type": "string" },
+        "routeName": { "type": "string" },
+        "vehicleType": { "type": "string" },
+        "transmission": { "type": "string" },
+        "fuelType": { "type": "string" },
+        "routeType": { "type": "string" },
+        "distanceKm": { "type": "number" },
+        "isRoundTrip": { "type": "boolean" },
+        "isACActive": { "type": "boolean" },
+        "coldStartLpg": { "type": "boolean" },
+        "pricePerLiter": { "type": "number" },
+        "totalLiters": { "type": "number" },
+        "totalCostPLN": { "type": "number" },
+        "costPerKm": { "type": "number" },
+        "savingsVsGasoline": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "distanceKm", "totalCostPLN", "date"]
+    },
+    "VehicleConfig": {
+      "title": "VehicleConfig",
+      "description": "Configuración del vehículo y saldo de combustible del usuario",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "fuelBalance": { "type": "number" },
+        "fuelPricePerLiter": { "type": "number" },
+        "odometer": { "type": "number" },
+        "vehicleName": { "type": "string" },
+        "country": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/accounts/{accountKey}": {
+      "schema": "AccountRecord",
+      "description": "Cuentas de usuario autenticadas en la nube"
+    },
+    "/users/{userId}/repostajes/{refuelId}": {
+      "schema": "RefuelRecord",
+      "description": "Colección de repostajes privados por usuario"
+    },
+    "/users/{userId}/mantenimientos/{maintenanceId}": {
+      "schema": "MaintenanceRecord",
+      "description": "Colección de mantenimientos mecánicos privados"
+    },
+    "/users/{userId}/neumaticos/{tireId}": {
+      "schema": "TireRecord",
+      "description": "Colección de control de neumáticos"
+    },
+    "/users/{userId}/tramites/{tramiteId}": {
+      "schema": "LegalRecord",
+      "description": "Colección de trámites legales, seguros e inspecciones"
+    },
+    "/users/{userId}/viajes/{viajeId}": {
+      "schema": "ViajeRecord",
+      "description": "Colección de viajes guardados y rutas"
+    },
+    "/users/{userId}/config/{configId}": {
+      "schema": "VehicleConfig",
+      "description": "Configuración de vehículo y saldo de tanque"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Health check test connection path
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // Cloud registered user accounts (for multi-device authentication & cross-phone sync)
+    match /accounts/{accountKey} {
+      allow read, write, create, update: if true;
+    }
+
+    // User Private Records & All Subcollections (Viajes, Repostajes, Mantenimientos, Neumáticos, Trámites, Config)
+    match /users/{userId} {
+      allow read, write, delete: if true;
+    }
+
+    match /users/{userId}/{document=**} {
+      allow read, write, delete: if true;
+    }
+
+    // Direct root collections with userId field
+    match /{collectionName}/{docId} {
+      allow read, write, delete: if true;
+    }
+  }
+}

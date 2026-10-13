@@ -1,0 +1,8 @@
+{
+  "name": "Kalculdora 2.2",
+  "description": "Calculadora avanzada de combustible basada en variables reales y parque automotor en Polonia (PLN)",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
