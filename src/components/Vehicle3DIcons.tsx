@@ -154,10 +154,10 @@ export const Suv3D: React.FC<Vehicle3DProps> = ({ className = '', size = 56 }) =
         <stop offset="100%" stopColor="#000000" stopOpacity="0" />
       </radialGradient>
       <linearGradient id="suvPaint" x1="10" y1="12" x2="86" y2="44" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stopColor="#EA580C" />
-        <stop offset="30%" stopColor="#F97316" />
-        <stop offset="70%" stopColor="#C2410C" />
-        <stop offset="100%" stopColor="#7C2D12" />
+        <stop offset="0%" stopColor="#2563EB" />
+        <stop offset="30%" stopColor="#3B82F6" />
+        <stop offset="70%" stopColor="#1D4ED8" />
+        <stop offset="100%" stopColor="#1E40AF" />
       </linearGradient>
       <linearGradient id="suvGlass" x1="26" y1="10" x2="68" y2="24" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#090D16" stopOpacity="0.95" />

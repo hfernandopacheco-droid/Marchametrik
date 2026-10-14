@@ -337,131 +337,50 @@ export const CalcularView: React.FC<CalcularViewProps> = ({
   const isCustomModeActive = (inputs.vehicleType || 'sedan') === 'custom';
 
   return (
-    <div className="min-h-screen bg-[#080B11] text-white pb-36 select-none font-sans antialiased">
+    <div className="min-h-screen bg-[#080B11] text-[#F8FAFC] pb-36 select-none font-sans antialiased">
       {/* ---------------- 1. STICKY TOP HEADER (Solid, No Opacity Layer) ---------------- */}
       <header className="sticky top-0 z-30 bg-[#080B11] border-b border-slate-800 px-4 py-3 flex items-center justify-between pt-[max(env(safe-area-inset-top,0px),12px)] shadow-md">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#FF4F00] to-[#FF8000] flex items-center justify-center shadow-lg shadow-[#FF4F00]/25 shrink-0">
-            <Calculator className="w-5 h-5 text-white" />
+        <div className="flex items-center space-x-2.5">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0F1E36] via-[#0A1628] to-[#0D1017] border border-cyan-500/40 flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.25)]">
+            <Calculator className="w-4 h-4 text-cyan-400" />
           </div>
           <div>
-            <h1 className="text-lg font-black tracking-tight text-white flex items-center space-x-1.5 leading-none">
-              <span>LitroMetrik</span>
-              <span className="text-[#FF4F00]">PRO</span>
-            </h1>
-            <p className="text-[11px] font-bold tracking-wider text-slate-400 uppercase mt-0.5">
-              CALCULADORA DE RUTA EN TIEMPO REAL
-            </p>
+            <h1 className="text-sm font-black tracking-wide text-white uppercase">Calculadora Pro</h1>
+            <p className="text-[10px] text-slate-400 font-medium">Consumo y Telemetría Estimada</p>
           </div>
-        </div>
-
-        {/* Country Selector */}
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => setShowCountryMenu(!showCountryMenu)}
-            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-[#1A202C] hover:bg-[#2D3748] border border-slate-700/80 text-xs font-black text-slate-200 transition active:scale-95 cursor-pointer shadow-sm"
-          >
-            <span>{currentCountry.flag}</span>
-            <span>{currentCountry.label}</span>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-          </button>
-
-          {showCountryMenu && (
-            <div className="absolute right-0 mt-2 w-44 rounded-2xl bg-[#1A202C] border border-slate-700 shadow-2xl py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
-              {countries.map((c) => (
-                <button
-                  key={c.code}
-                  type="button"
-                  onClick={() => {
-                    const nextCountryData = DATA_PAIS[c.code] || DATA_PAIS.PL;
-                    try {
-                      localStorage.setItem('litrometrik_selected_country', c.code);
-                      localStorage.setItem('litrometrik_jurisdiction_country', c.code);
-                    } catch (e) {}
-
-                    const defaultPrice = getWeightedFuelPrice(inputs.fuelType, c.code);
-
-                    onChange({
-                      country: c.code,
-                      pricePerLiter: defaultPrice,
-                      referenceGasolinePrice: getWeightedFuelPrice('gasolina', c.code),
-                      routeName: `Viaje en ${nextCountryData.nombre}`,
-                    });
-                    setPriceInputText(defaultPrice.toString());
-                    setShowCountryMenu(false);
-                    window.dispatchEvent(new CustomEvent('litrometrik-country-changed', { detail: { country: c.code } }));
-                  }}
-                  className={`w-full text-left px-3.5 py-2 text-xs font-black transition flex items-center justify-between ${
-                    inputs.country === c.code ? 'text-[#FF4F00] bg-white/5' : 'text-slate-200 hover:bg-white/5'
-                  }`}
-                >
-                  <span className="flex items-center space-x-2">
-                    <span>{c.flag}</span>
-                    <span>{c.label}</span>
-                  </span>
-                  {inputs.country === c.code && <span className="w-1.5 h-1.5 rounded-full bg-[#FF4F00]" />}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
       </header>
 
-      {/* Floating Save Notification */}
-      {saveSuccess && (
-        <div className="fixed top-16 left-4 right-4 z-50 max-w-md mx-auto">
-          <div className="p-3.5 rounded-2xl bg-[#121620] border border-emerald-500/60 text-white text-xs font-bold flex items-center space-x-2 shadow-2xl animate-in slide-in-from-top duration-200">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>
-              {cloudSaving
-                ? 'Sincronizando con Firestore...'
-                : '✅ ¡Ruta calculada y guardada exitosamente en la nube!'}
-            </span>
-          </div>
-        </div>
-      )}
-
-      {/* ---------------- 2. MAIN CONTAINER ---------------- */}
-      <main className="max-w-md mx-auto px-4 pt-4 space-y-4">
-        {/* =========================================================================
-            PASO 1: VEHÍCULO Y MOTORIZACIÓN (Idéntico a Modo Marcha)
-           ========================================================================= */}
-        <div className="p-4 sm:p-5 rounded-3xl bg-[#121620] border border-slate-800/80 shadow-xl space-y-3.5">
+      <main className="max-w-md mx-auto px-3.5 sm:px-4 pt-2.5 space-y-3.5">
+        {/* Paso 1: Vehículo y Motorización */}
+        <div className="p-4 sm:p-5 rounded-3xl bg-[#121620] border border-slate-800/80 shadow-xl space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <span className="w-5 h-5 rounded-full bg-[#FF4F00] text-white text-[11px] font-black flex items-center justify-center">
+              <span className="w-5 h-5 rounded-full bg-cyan-500 text-black text-[11px] font-black flex items-center justify-center">
                 1
               </span>
               <span className="text-xs font-black tracking-wider text-white uppercase">
-                Vehículo y Motorización
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-[11px] font-black px-2.5 py-0.5 rounded-full bg-[#FF4F00]/15 text-[#FF4F00] border border-[#FF4F00]/30 shadow-sm">
-                Base: {formatFuelEconomy(inputs.customBaseConsumption || calc.activeBaseConsumption, inputs.country)}
+                Vehículo & Motorización
               </span>
             </div>
           </div>
 
-          {/* Tarjeta Unificada idéntica a Modo Marcha: Carrocería, Pastilla de Motor (?) y Consumo Base */}
-          <div className="bg-[#0B0F19] border border-slate-800 rounded-2xl p-2.5 shadow-sm flex items-center justify-between">
+          {/* Tarjeta vehículo activo */}
+          <div className="p-3 rounded-2xl bg-[#0B0F19] border border-slate-800 flex items-center justify-between">
             <button
               type="button"
               onClick={handleOpenVehicleModal}
-              className="flex-1 flex items-center justify-between p-1 rounded-xl hover:bg-white/5 transition active:scale-[0.99] cursor-pointer text-left group"
+              className="flex items-center justify-between w-full group text-left"
             >
-              <div className="flex items-center space-x-2.5 min-w-0">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#121620] to-[#0D1017] border border-slate-700/80 flex items-center justify-center shrink-0 shadow-sm overflow-hidden p-1">
-                  {renderVehicle3D(inputs.vehicleType || 'sedan', 36)}
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0F1E36] via-[#0A1628] to-[#0D1017] border border-cyan-500/30 flex items-center justify-center shadow-[0_0_12px_rgba(6,182,212,0.2)] shrink-0">
+                  {renderVehicle3D(inputs.vehicleType || 'sedan', 32)}
                 </div>
-                <div className="min-w-0">
-                  <div className="flex items-center space-x-2 leading-tight">
-                    {/* Categoría a la izquierda */}
-                    <span className="text-xs font-black text-white truncate">
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs font-black text-white group-hover:text-cyan-400 transition">
                       {activeVehiclePreset.label}
                     </span>
-                    {/* Pastilla a la derecha: "Motor 1.6L Estándar (?)" */}
                     <button
                       type="button"
                       onClick={(e) => {
@@ -494,6 +413,7 @@ export const CalcularView: React.FC<CalcularViewProps> = ({
               </div>
             </button>
           </div>
+
 
           {/* Selector de 6 Categorías de Vehículos con Renders 3D Profesionales */}
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
