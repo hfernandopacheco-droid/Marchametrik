@@ -1141,8 +1141,7 @@ export const CalcularView: React.FC<CalcularViewProps> = ({
               Dinero Total Estimado
             </span>
             <div className="text-4xl sm:text-5xl font-black font-sans text-white tracking-tight mt-0.5">
-              {calc.totalCostMoney.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
-              <span className="text-xl sm:text-2xl text-[#FF4F00] font-black">{currency}</span>
+              {formatCurrency(calc.totalCostMoney, inputs.country)}
             </div>
           </div>
 

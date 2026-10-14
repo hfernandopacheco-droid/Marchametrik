@@ -2776,7 +2776,7 @@ export const ModoMarchaView: React.FC<ModoMarchaViewProps> = ({
           <p className="text-xs text-slate-400 font-medium px-1 flex items-center justify-between">
             <span>Toca una barra para ver el desglose</span>
             <span className="text-[11px] font-bold text-[#FF4F00]">
-              {chartData.reduce((acc, curr) => acc + (curr.cost || 0), 0).toFixed(2)} {currency}
+              {formatCurrency(chartData.reduce((acc, curr) => acc + (curr.cost || 0), 0), selectedCountry)}
             </span>
           </p>
 
@@ -2840,7 +2840,7 @@ export const ModoMarchaView: React.FC<ModoMarchaViewProps> = ({
                             <div className="flex items-center justify-between space-x-3 text-[#FF5722] font-bold">
                               <span>Gasto Total:</span>
                               <span className="font-sans font-black">
-                                {data.cost.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {currency}
+                                {formatCurrency(data.cost, selectedCountry)}
                               </span>
                             </div>
                             <div className="flex items-center justify-between space-x-3 text-sky-400 font-bold">
@@ -2907,7 +2907,7 @@ export const ModoMarchaView: React.FC<ModoMarchaViewProps> = ({
                 GASTO TOTAL
               </span>
               <div className="text-2xl font-black font-sans text-[#FF4F00] tracking-tight">
-                {resumenTotales.cost.toFixed(2).replace('.', ',')} <span className="text-sm font-bold">{currency}</span>
+                {formatCurrency(resumenTotales.cost, selectedCountry)}
               </div>
             </div>
 
@@ -2977,7 +2977,7 @@ export const ModoMarchaView: React.FC<ModoMarchaViewProps> = ({
                         <div className="text-[11px] text-slate-400 mt-0.5">
                           {isRepostaje ? (
                             <span>
-                              +{v.litros.toFixed(2)} L @ {v.precioLitro.toFixed(2)} {currency}/L
+                              +{v.litros.toFixed(2)} L @ {formatCurrency(v.precioLitro, selectedCountry, { isPerUnit: true })}
                               {v.estacion ? ` • ${v.estacion}` : ''}
                             </span>
                           ) : (
@@ -2993,7 +2993,7 @@ export const ModoMarchaView: React.FC<ModoMarchaViewProps> = ({
                         <div className={`text-sm font-black font-sans ${
                           isRepostaje ? 'text-emerald-400' : 'text-[#FF4F00]'
                         }`}>
-                          {isRepostaje ? `+${v.costo.toFixed(2)}` : `${v.costo.toFixed(2)}`} {currency}
+                          {isRepostaje ? `+${formatCurrency(v.costo, selectedCountry)}` : formatCurrency(v.costo, selectedCountry)}
                         </div>
                       </div>
                     </div>

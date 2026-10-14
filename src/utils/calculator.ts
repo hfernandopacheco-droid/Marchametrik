@@ -345,17 +345,13 @@ export function formatCurrency(
 ): string {
   const num = typeof amount === 'number' && !isNaN(amount) ? amount : 0;
   const isPerUnit = !!options?.isPerUnit;
-  const defaultUnit = countryCode === 'US' ? 'gal' : 'L';
-  const unitName = options?.unit || defaultUnit;
-  const unitSuffix = isPerUnit ? `/${unitName}` : '';
 
   if (countryCode === 'CO') {
     const rounded = Math.round(num);
-    const formatted = rounded.toLocaleString('es-CO', {
-      maximumFractionDigits: 0,
-      minimumFractionDigits: 0,
-    }).replace(/,/g, '.');
-    return `$${formatted} COP${unitSuffix}`;
+    const absStr = Math.abs(rounded).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const formattedStr = rounded < 0 ? `-$${absStr}` : `$${absStr}`;
+    const unitSuffix = isPerUnit ? ' COP/L' : ' COP';
+    return `${formattedStr}${unitSuffix}`;
   }
 
   if (countryCode === 'US') {
@@ -363,12 +359,15 @@ export function formatCurrency(
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-    return `$${formatted} USD${unitSuffix}`;
+    const defaultUnit = options?.unit || 'gal';
+    const unitSuffix = isPerUnit ? ` USD/${defaultUnit}` : ' USD';
+    return `$${formatted}${unitSuffix}`;
   }
 
   // Poland (PL) default
   const formatted = num.toFixed(2).replace('.', ',');
-  return `${formatted} PLN${unitSuffix}`;
+  const unitSuffix = isPerUnit ? ' PLN/L' : ' PLN';
+  return `${formatted}${unitSuffix}`;
 }
 
 /**
@@ -380,10 +379,8 @@ export function formatCurrencyNumber(
 ): string {
   const num = typeof amount === 'number' && !isNaN(amount) ? amount : 0;
   if (countryCode === 'CO') {
-    return Math.round(num).toLocaleString('es-CO', {
-      maximumFractionDigits: 0,
-      minimumFractionDigits: 0,
-    }).replace(/,/g, '.');
+    const rounded = Math.round(num);
+    return Math.abs(rounded).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
   if (countryCode === 'US') {
     return num.toLocaleString('en-US', {
